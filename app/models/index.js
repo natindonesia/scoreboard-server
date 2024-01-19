@@ -13,5 +13,6 @@ module.exports = {
   score: require("./score.model")(mongoose),
   playerHome: require("./playerHome.model")(mongoose),
   playerAway: require("./playerAway.model")(mongoose),
+  coach: require("./coach.model")(mongoose),
   TimerState, // Include the TimerState model
 };

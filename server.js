@@ -50,6 +50,7 @@ mongoose
 
 // Include your existing routes here
 require("./app/routes/mahasiswa.routes")(app);
+require("./app/routes/coach.route")(app);
 require("./app/routes/homeTeam.route")(app);
 require("./app/routes/awayTeam.route")(app);
 require("./app/routes/team.route")(app);
@@ -87,7 +88,6 @@ io.on("connection", (socket) => {
   // Send the current stopwatch state to the newly connected client
   io.to(socket.id).emit("initialState", stopwatchState);
 
-  // Handle start event
   socket.on("start", () => {
     stopwatchState = {
       running: true,
