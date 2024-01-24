@@ -3,7 +3,11 @@ module.exports = (mongoose) => {
     {
       name: String,
       no: String,
-      position: { type: mongoose.Schema.Types.ObjectId, ref: "Position" },
+      Position: String,
+      photo: {
+        data: Buffer,
+        contentType: String,
+      },
     },
     {
       timestamps: true,

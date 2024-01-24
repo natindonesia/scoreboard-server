@@ -8,6 +8,11 @@ const mongoose = require("mongoose");
 const jwtMiddleware = require("./app/middlewares/jsMiddleware");
 const db = require("./app/models");
 const matchRoutes = require("./app/routes/homeTeam.route");
+const multer = require("multer");
+
+// Middleware for handling file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const corsOptions = {
   origin: "*",
@@ -27,12 +32,6 @@ const io = require("socket.io")(server, {
     origin: "*",
   },
 });
-
-// Store the stopwatch state
-let stopwatchState = {
-  running: false,
-  initialTime: null,
-};
 
 // Connect to the database
 const mongooseConfig = {
@@ -60,77 +59,10 @@ require("./app/routes/playerAway.route")(app);
 app.use("/auth", require("./app/routes/auth.route"));
 app.use("/protected", jwtMiddleware);
 
-// Define the stopwatch state schema
-const stopwatchStateSchema = new mongoose.Schema({
-  running: Boolean,
-  initialTime: Date,
-});
+// Routes
 
-// Create the StopwatchState model
-const StopwatchState = mongoose.model("StopwatchState", stopwatchStateSchema);
-
-// Load the stopwatch state from the database on server startup
-StopwatchState.findOne({})
-  .exec()
-  .then((data) => {
-    if (data) {
-      stopwatchState = data;
-    }
-  })
-  .catch((err) => {
-    console.error("Error loading stopwatch state:", err);
-  });
-
-// Socket.IO connection handling
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
-
-  // Send the current stopwatch state to the newly connected client
-  io.to(socket.id).emit("initialState", stopwatchState);
-
-  socket.on("start", () => {
-    stopwatchState = {
-      running: true,
-      initialTime: stopwatchState.initialTime || Date.now(),
-    };
-    io.emit("start", stopwatchState);
-
-    // Save the updated stopwatch state to the database
-    StopwatchState.findOneAndUpdate({}, stopwatchState, { upsert: true })
-      .exec()
-      .then(() => {
-        console.log("Stopwatch state updated successfully");
-      })
-      .catch((err) => {
-        console.error("Error updating stopwatch state:", err);
-      });
-  });
-
-  // Handle stop event
-  socket.on("stop", () => {
-    stopwatchState = {
-      running: false,
-      initialTime: stopwatchState.running
-        ? Date.now()
-        : stopwatchState.initialTime,
-    };
-    io.emit("stop", stopwatchState);
-
-    // Save the updated stopwatch state to the database
-    StopwatchState.findOneAndUpdate({}, stopwatchState, { upsert: true })
-      .exec()
-      .then(() => {
-        console.log("Stopwatch state updated successfully");
-      })
-      .catch((err) => {
-        console.error("Error updating stopwatch state:", err);
-      });
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
-});
+const pictureRoutes = require("./app/routes/picture.route");
+app.use("/pictures", pictureRoutes);
 
 // Set up the server to listen on a specific port
 const PORT = process.env.PORT || 8000;
