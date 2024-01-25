@@ -3,6 +3,8 @@ module.exports = (mongoose) => {
     {
       home: String,
       away: String,
+      massageHome: String,
+      massageAway: String,
     },
     {
       timestamps: true,

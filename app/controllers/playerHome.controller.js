@@ -1,12 +1,6 @@
 const db = require("../models");
 const PlayerHome = db.playerHome;
 
-// exports.create = (req, res) => {
-//   PlayerHome.create(req.body)
-//     .then(() => res.send({ message: "data berhasil disimpan" }))
-//     .catch((err) => res.status(500).send({ message: err.message }));
-// };
-
 exports.create = async (req, res) => {
   try {
     const { name, no, Position } = req.body;
