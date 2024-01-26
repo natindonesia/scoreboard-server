@@ -21,13 +21,20 @@ exports.show = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
+  const { messagesHome, messagesAway } = req.body;
+  const homeValue = messagesHome ? messagesHome.length : 0;
+  const awayValue = messagesAway ? messagesAway.length : 0;
 
-  Score.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Score.findByIdAndUpdate(
+    id,
+    { home: homeValue, away: awayValue, messagesHome, messagesAway },
+    { useFindAndModify: false }
+  )
     .then((data) => {
       if (!data) {
-        res.status(404).send({ message: "tidak dapat mengupdate data" });
+        res.status(404).send({ message: "Tidak dapat mengupdate data" });
       }
-      res.send({ message: "Data berhasil di update" });
+      res.send({ message: "Data berhasil di update", data });
     })
     .catch((err) => res.status(500).send({ message: err.message }));
 };
