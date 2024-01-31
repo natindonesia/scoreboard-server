@@ -1,5 +1,5 @@
-// ... (other imports)
-
+const firebase = require("firebase/app");
+require("firebase/auth");
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
@@ -13,6 +13,7 @@ const multer = require("multer");
 // Middleware for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const router = express.Router();
 
 const corsOptions = {
   origin: "*",
@@ -21,7 +22,7 @@ const corsOptions = {
 // Create an Express app
 const app = express();
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 
 // Create an HTTP server using the Express app
 const server = http.createServer(app);
@@ -58,6 +59,10 @@ require("./app/routes/playerHome.route")(app);
 require("./app/routes/playerAway.route")(app);
 app.use("/auth", require("./app/routes/auth.route"));
 app.use("/protected", jwtMiddleware);
+router.get("/protected/data", jwtMiddleware, (req, res) => {
+  // Access the protected data using req.user
+  res.json({ message: "Protected data accessed successfully", user: req.user });
+});
 
 // Routes
 

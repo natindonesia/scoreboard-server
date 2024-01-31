@@ -7,6 +7,7 @@ module.exports = (app) => {
   r.post("/", awayTeam.create);
   r.put("/:id", awayTeam.update);
   r.delete("/:id", awayTeam.delete);
+  r.post("/swap", awayTeam.swapTeams);
 
   app.use("/team", r);
 };

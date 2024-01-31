@@ -156,3 +156,44 @@ exports.delete = (req, res) => {
     })
     .catch((err) => res.status(500).send({ message: err.message }));
 };
+
+exports.swapTeams = async (req, res) => {
+  const { team1Id, team2Id } = req.body;
+
+  try {
+    // Fetch all teams
+    const teams = await PlayerHome.find();
+
+    // Call the helper function to swap teams in the array
+    const swappedTeams = await swapTeamsArray(teams, team1Id, team2Id);
+
+    res.send({
+      message: "Teams swapped successfully",
+      teams: swappedTeams,
+    });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+// Helper function to swap teams in an array
+const swapTeamsArray = async (teams, team1Id, team2Id) => {
+  const team1Index = teams.findIndex((team) => team._id.toString() === team1Id);
+  const team2Index = teams.findIndex((team) => team._id.toString() === team2Id);
+
+  if (team1Index === -1 || team2Index === -1) {
+    throw new Error("One or more teams not found");
+  }
+
+  // Swap the teams in the array
+  [teams[team1Index], teams[team2Index]] = [
+    teams[team2Index],
+    teams[team1Index],
+  ];
+
+  // Save the updated array back to the database
+  await PlayerHome.deleteMany({}); // Remove all teams from the database
+  await PlayerHome.insertMany(teams); // Insert the updated teams array
+
+  return teams;
+};
