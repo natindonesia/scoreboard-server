@@ -58,12 +58,12 @@ require("./app/routes/team.route")(app);
 require("./app/routes/score.route")(app);
 require("./app/routes/playerHome.route")(app);
 require("./app/routes/playerAway.route")(app);
-app.use("/auth", require("./app/routes/auth.route"));
-app.use("/protected", jwtMiddleware);
-router.get("/protected/data", jwtMiddleware, (req, res) => {
-  // Access the protected data using req.user
-  res.json({ message: "Protected data accessed successfully", user: req.user });
-});
+// app.use("/auth", require("./app/routes/auth.route"));
+// app.use("/protected", jwtMiddleware);
+// router.get("/protected/data", jwtMiddleware, (req, res) => {
+// Access the protected data using req.user
+//   res.json({ message: "Protected data accessed successfully", user: req.user });
+// });
 
 // Routes
 
