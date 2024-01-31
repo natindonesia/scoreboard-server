@@ -9,6 +9,7 @@ const jwtMiddleware = require("./app/middlewares/jsMiddleware");
 const db = require("./app/models");
 const matchRoutes = require("./app/routes/homeTeam.route");
 const multer = require("multer");
+require("dotenv").config();
 
 // Middleware for handling file uploads
 const storage = multer.memoryStorage();
