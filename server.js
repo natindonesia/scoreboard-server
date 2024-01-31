@@ -70,8 +70,8 @@ router.get("/protected/data", jwtMiddleware, (req, res) => {
 const pictureRoutes = require("./app/routes/picture.route");
 app.use("/pictures", pictureRoutes);
 
-// Set up the server to listen on a specific port
+const IP_ADDRESS = process.env.IP || "localhost"; // Replace with the desired IP address
 const PORT = process.env.PORT || 8000;
-server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+server.listen(PORT, IP_ADDRESS, () => {
+  console.log(`Server running on http://${IP_ADDRESS}:${PORT}`);
 });
