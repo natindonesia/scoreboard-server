@@ -42,7 +42,7 @@ const mongooseConfig = {
 };
 
 mongoose
-  .connect("mongodb://localhost:27017/express_api", mongooseConfig)
+  .connect(`${process.env.DATABASE_URL}express`, mongooseConfig)
   .then(() => console.log("Database connected"))
   .catch((err) => {
     console.log(`Failed to connect to the database: ${err.message}`);
