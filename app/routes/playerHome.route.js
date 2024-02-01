@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const playerHome = require("../controllers/PlayerHome.controller");
+  const playerHome = require("../controllers/playerHome.controller");
   const r = require("express").Router();
   const multer = require("multer");
   const storage = multer.memoryStorage();
