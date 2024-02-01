@@ -5,19 +5,15 @@ module.exports = (app) => {
   const storage = multer.memoryStorage();
   const upload = multer({ storage: storage });
 
-  // r.get("/", playerAway.findAll);
-  // r.get("/:id", playerAway.show);
-  // r.post("/", playerAway.create);
-  // r.put("/:id", playerAway.update);
-  // r.delete("/:id", playerAway.delete);
   r.get("/", playerAway.findAll);
   r.get("/:id", playerAway.show);
-  r.post("/", upload.single("file"), playerAway.create); // Handle file upload in the create route
+  r.post("/", upload.single("file"), playerAway.create);
   r.put("/:id", playerAway.update);
   r.put("/:id/photo", upload.single("file"), playerAway.updatePhoto);
   r.put("/update-all-names", playerAway.updateAllNames);
   r.delete("/:id", playerAway.delete);
   r.get("/:id/photo", playerAway.getPhoto);
+  r.post("/swap", playerAway.swapTeams);
 
   app.use("/playerAway", r);
 };
