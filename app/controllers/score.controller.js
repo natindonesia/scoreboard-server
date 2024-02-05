@@ -21,13 +21,20 @@ exports.show = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-  const { messagesHome, messagesAway } = req.body;
+  const { messagesHome, messagesAway, minutesHome, minutesAway } = req.body;
   const homeValue = messagesHome ? messagesHome.length : 0;
   const awayValue = messagesAway ? messagesAway.length : 0;
 
   Score.findByIdAndUpdate(
     id,
-    { home: homeValue, away: awayValue, messagesHome, messagesAway },
+    {
+      home: homeValue,
+      away: awayValue,
+      messagesHome,
+      messagesAway,
+      minutesAway,
+      minutesHome,
+    },
     { useFindAndModify: false }
   )
     .then((data) => {
