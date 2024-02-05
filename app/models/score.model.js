@@ -3,8 +3,10 @@ module.exports = (mongoose) => {
     {
       home: String,
       away: String,
-      messagesHome: Array, // Change here
-      messagesAway: Array, // Change here
+      messagesHome: Array,
+      minutesHome: Array,
+      messagesAway: Array,
+      minutesAway: Array,
     },
     {
       timestamps: true,
