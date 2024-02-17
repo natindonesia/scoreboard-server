@@ -3,6 +3,7 @@ module.exports = (mongoose) => {
     {
       name: String,
       logo: String,
+      formation: String,
     },
     {
       timestamps: true,
