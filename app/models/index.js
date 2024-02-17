@@ -14,5 +14,6 @@ module.exports = {
   playerHome: require("./playerHome.model")(mongoose),
   playerAway: require("./playerAway.model")(mongoose),
   coach: require("./coach.model")(mongoose),
+  formation: require("./formation.model")(mongoose),
   TimerState, // Include the TimerState model
 };

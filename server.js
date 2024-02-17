@@ -39,6 +39,7 @@ require("./app/routes/team.route")(app);
 require("./app/routes/score.route")(app);
 require("./app/routes/playerHome.route")(app);
 require("./app/routes/playerAway.route")(app);
+require("./app/routes/formation.route")(app);
 
 const pictureRoutes = require("./app/routes/picture.route");
 app.use("/pictures", pictureRoutes);
