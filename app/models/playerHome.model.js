@@ -3,10 +3,11 @@ module.exports = (mongoose) => {
     {
       name: String,
       no: String,
-      photo: {
-        data: Buffer,
-        contentType: String,
-      },
+      // photo: {
+      //   data: Buffer,
+      //   contentType: String,
+      // },
+      photo: String,
     },
     {
       timestamps: true,
