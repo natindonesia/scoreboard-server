@@ -125,6 +125,31 @@ exports.updatePhoto = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.clearPhoto = async (req, res) => {
+  try {
+    const playerId = req.params.id;
+
+    // Find the player by ID
+    const player = await PlayerHome.findById(playerId);
+
+    if (!player) {
+      return res.status(404).json({ message: "Player not found" });
+    }
+
+    // Remove the photo field from the player document
+    player.photo = undefined; // or null
+
+    // Save the updated player document
+    await player.save();
+
+    res.json({ message: "Photo deleted successfully", player });
+  } catch (error) {
+    console.error("Error deleting photo:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 exports.updateAllNames = async (req, res) => {
   try {
     const newName = req.body.newName; // Assuming you send the new name in the request body

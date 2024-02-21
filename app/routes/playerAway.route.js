@@ -13,6 +13,7 @@ module.exports = (app) => {
   r.put("/update-all-names", playerAway.updateAllNames);
   r.delete("/:id", playerAway.delete);
   r.get("/:id/photo", playerAway.getPhoto);
+  r.put("/:id/photoDelete", playerAway.clearPhoto);
   r.post("/swap", playerAway.swapTeams);
 
   app.use("/playerAway", r);
