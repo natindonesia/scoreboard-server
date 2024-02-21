@@ -176,6 +176,30 @@ exports.swapTeams = async (req, res) => {
   }
 };
 
+exports.clearPhoto = async (req, res) => {
+  try {
+    const playerId = req.params.id;
+
+    // Find the player by ID
+    const player = await PlayerAway.findById(playerId);
+
+    if (!player) {
+      return res.status(404).json({ message: "Player not found" });
+    }
+
+    // Remove the photo field from the player document
+    player.photo = undefined; // or null
+
+    // Save the updated player document
+    await player.save();
+
+    res.json({ message: "Photo deleted successfully", player });
+  } catch (error) {
+    console.error("Error deleting photo:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 // Helper function to swap teams in an array
 const swapTeamsArray = async (teams, team1Id, team2Id) => {
   const team1Index = teams.findIndex((team) => team._id.toString() === team1Id);

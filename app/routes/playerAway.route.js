@@ -14,6 +14,7 @@ module.exports = (app) => {
   r.delete("/:id", playerAway.delete);
   r.get("/:id/photo", playerAway.getPhoto);
   r.post("/swap", playerAway.swapTeams);
+  r.put("/:id/photoDelete", playerAway.clearPhoto);
 
   app.use("/playerAway", r);
 };
