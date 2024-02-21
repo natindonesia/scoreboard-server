@@ -131,7 +131,7 @@ exports.clearPhoto = async (req, res) => {
     const playerId = req.params.id;
 
     // Find the player by ID
-    const player = await PlayerHome.findById(playerId);
+    const player = await PlayerAway.findById(playerId);
 
     if (!player) {
       return res.status(404).json({ message: "Player not found" });
