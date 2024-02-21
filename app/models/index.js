@@ -7,6 +7,7 @@ module.exports = {
   mongoose,
   url: dbConfig.url,
   mahasiswa: require("./mahasiswa.model")(mongoose),
+  player: require("./player.model")(mongoose),
   homeTeam: require("./homeTeam.model")(mongoose),
   awayTeam: require("./awayTeam.model")(mongoose),
   team: require("./team.model")(mongoose),

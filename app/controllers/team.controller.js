@@ -4,7 +4,9 @@ const Team = db.team;
 
 exports.create = async (req, res) => {
   try {
-    const team = await Team.create(req.body);
+    const { name } = req.body;
+    const logo = req.file ? req.file.path : null;
+    const team = await Team.create({ name, logo });
     res.send({ message: "Data berhasil disimpan", team });
   } catch (err) {
     res.status(500).send({ message: err.message });

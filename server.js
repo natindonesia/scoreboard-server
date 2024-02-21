@@ -33,6 +33,7 @@ mongoose
 // Include existing routes
 require("./app/routes/mahasiswa.routes")(app);
 require("./app/routes/coach.route")(app);
+require("./app/routes/player.route")(app)
 require("./app/routes/homeTeam.route")(app);
 require("./app/routes/awayTeam.route")(app);
 require("./app/routes/team.route")(app);
