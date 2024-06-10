@@ -3,10 +3,28 @@ const Player = db.player;
 
 exports.create = async (req, res) => {
     try {
-        const { name, no, team } = req.body;
-        const photo = req.file ? req.file.path : null;
-        const player = await Player.create({ name, no, team, photo });
-        res.send({ message: "Data berhasil disimpan", player });
+        const { name, no, Position } = req.body;
+
+        // Check if the required fields are provided
+
+        // Create a new PlayerHome instance
+        const newPlayer = new Player({
+            name,
+            no,
+            Position,
+        });
+
+        // Add photo information if available
+        if (req.file) {
+            newPlayer.photo = {
+                data: req.file.buffer,
+                contentType: req.file.mimetype,
+            };
+        }
+
+        // Save the new player to the database
+        await newPlayer.save();
+        res.send({ message: "Data berhasil disimpan", newPlayer });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
