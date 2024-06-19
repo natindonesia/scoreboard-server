@@ -6,8 +6,13 @@ exports.create = async (req, res) => {
   try {
     const { name } = req.body;
 
-    const logo = req.file ? req.file.path : null;
-    const newTeam = new Team({ name, logo });
+    const newTeam = new Team({ name });
+    if (req.file) {
+      newTeam.logo = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
+    }
     await newTeam.save();
     res.send({ message: "Data berhasil disimpan", newTeam });
   } catch (err) {

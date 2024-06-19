@@ -3,7 +3,7 @@ const Player = db.player;
 
 exports.create = async (req, res) => {
     try {
-        const { name, no, Position } = req.body;
+        const { name, no, Position, team } = req.body;
 
         // Check if the required fields are provided
 
@@ -12,8 +12,8 @@ exports.create = async (req, res) => {
             name,
             no,
             Position,
+            team
         });
-
         // Add photo information if available
         if (req.file) {
             newPlayer.photo = {

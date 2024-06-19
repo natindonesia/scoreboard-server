@@ -2,7 +2,10 @@ module.exports = (mongoose) => {
   const schema = mongoose.Schema(
     {
       name: String,
-      logo: String,
+        logo: {
+            data: Buffer,
+            contentType: String,
+        },
     },
     {
       timestamps: true,

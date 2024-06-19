@@ -1,8 +1,9 @@
 module.exports = (app) => {
     const player = require("../controllers/player.controller.js");
+    const multer = require("multer");
     const r = require("express").Router();
-    const upload = require("../middlewares/upload");
-
+    const storage = multer.memoryStorage();
+    const upload = multer({ storage: storage });
 
     r.get("/", player.findAll);
     r.get("/:id", player.show);

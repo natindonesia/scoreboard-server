@@ -1,7 +1,9 @@
 module.exports = (app) => {
   const awayTeam = require("../controllers/team.controller");
+  const multer = require("multer");
   const r = require("express").Router();
-  const upload = require("../middlewares/upload");
+  const storage = multer.memoryStorage();
+  const upload = multer({ storage: storage });
 
 
   r.get("/", awayTeam.findAll);
